@@ -32,7 +32,7 @@ use pocketmine\Server;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class Main extends PluginBase impliments Listener{
+class Main extends PluginBase implements Listener {
 
   public function onEnable(){
 	  $this->loadConfig();
