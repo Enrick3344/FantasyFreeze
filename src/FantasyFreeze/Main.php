@@ -23,6 +23,7 @@
 
 namespace FantasyFreeze;
 
+use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\event\Listener;
@@ -43,6 +44,14 @@ class Main extends PluginBase implements Listener {
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->getLogger()->notice(TextFormat::AQUA . "FantasyFreeze Enabled!");
 	 }
+	
+public function loadConfig(){
+	$this->saveResource("freeze.yml");
+	$this->freeze = new Config($this->getDataFolder() . "freeze.yml", Config::YAML, array(
+		'Frozen' => []));
+	$this->freeze->save();
+}
+	
    
 public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {
    	switch($command->getName()){
@@ -104,11 +113,19 @@ public function onCommand(CommandSender $sender, Command $command, string $label
 		}
 	}
    }
-		
-public function loadConfig(){
-	$this->saveResource("freeze.yml");
-	$this->freeze = new Config($this->getDataFolder() . "freeze.yml", Config::YAML, array(
-		'Frozen' => []));
-	$this->freeze->save();
-}   
+	
+public function onMove(PlayerMoveEvent $event) {
+		$freeze =  $this->freeze->get("Frozen");
+		$message = $this->getConfig()->get("Frozen-Popup-Message");
+		$name = $event->getPlayer()->getName();
+		$player = $event->getPlayer();
+		if(in_array($name, $freeze)){
+			if($player->hasPermission("fantasyplus.freeze.bypass")){
+				return true;
+			}else{
+			$event->getPlayer()->sendPopup($message);
+			$event->setCancelled();
+			}
+		}
+	}
 }
