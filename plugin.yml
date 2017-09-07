@@ -1,0 +1,26 @@
+---
+name: "FantasyFreeze"
+version: 0.1
+api: [3.0.0-ALPHA7]
+author: "Enrick3344"
+main: FantasyFreeze\Main
+
+commands:
+  freeze:
+    description: "Allows you to freeze a player!"
+    permission: fantasyfreeze.freeze.use
+  unfreeze:
+    description: "Allows you to unfreeze a player!"
+    permission: fantasyfreeze.unfreeze.use
+permissions:
+  fantasyfreeze.use:
+    description: "Allows you to use all FantasyFreeze functionnality"
+    default: op
+    children:
+      fantasyfreeze.freeze.use:
+        description: "Allows you to use freeze command"
+        default: op
+      fantasyfreeze.unfreeze.use:
+        description: "Allows you to use unfreeze command"
+        default: op
+...
