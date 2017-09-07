@@ -1,3 +1,4 @@
+<?php
 /*
  * 
  *  _____           _                  _____                      
@@ -34,6 +35,7 @@ use pocketmine\utils\TextFormat;
 class Main extends PluginBase impliments Listener{
 
   public function onEnable(){
+	  $this->loadConfig();
 		if(!file_exists($this->getDataFolder() . "config.yml")){
      			 @mkdir($this->getDataFolder());
      			 file_put_contents($this->getDataFolder()."config.yml", $this->getResource("config.yml"));
@@ -97,10 +99,16 @@ class Main extends PluginBase impliments Listener{
 						$sender->sendMessage("§l§dUsage§5>§r§b /unfreeze <player>");
 					}
 					return true;
-				}
-      
+	}
       }
    }
+		
+	public function loadConfig(){
+		$this->saveResource("freeze.yml");
+		$this->freeze = new Config($this->getDataFolder() . "freeze.yml", Config::YAML, array(
+			'Frozen' => []));
+		$this->freeze->save();
+	}
    
    
    
