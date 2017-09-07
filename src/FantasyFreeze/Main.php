@@ -66,8 +66,9 @@ class Main extends PluginBase implements Listener {
 								    $sender->sendMessage("§5>§d You have Successfully Froze " . $name);
 							    }
 					    }
-					return true;
+					return false;
 				}
+	       return true;
       case "unfreeze":{
         if(isset($args[0])) {
 			    $victim = $args[0];
