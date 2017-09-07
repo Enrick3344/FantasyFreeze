@@ -120,7 +120,7 @@ public function onMove(PlayerMoveEvent $event) {
 		$name = $event->getPlayer()->getName();
 		$player = $event->getPlayer();
 		if(in_array($name, $freeze)){
-			if($player->hasPermission("fantasyplus.freeze.bypass")){
+			if($player->hasPermission("fantasyfreeze.bypass")){
 				return true;
 			}else{
 			$event->getPlayer()->sendPopup($message);
