@@ -116,7 +116,7 @@ public function onCommand(CommandSender $sender, Command $command, string $label
 	
 public function onMove(PlayerMoveEvent $event) {
 		$freeze =  $this->freeze->get("Frozen");
-		$message = $this->getConfig()->get("Frozen-Popup-Message");
+		$message = $this->getConfig()->get("Frozen-Popup");
 		$name = $event->getPlayer()->getName();
 		$player = $event->getPlayer();
 		if(in_array($name, $freeze)){
