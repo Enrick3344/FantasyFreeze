@@ -44,68 +44,71 @@ class Main extends PluginBase implements Listener {
 		$this->getLogger()->notice(TextFormat::AQUA . "FantasyFreeze Enabled!");
 	 }
    
-   public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {
-     switch($command->getName()){
-       case "freeze":{
-       		if(isset($args[0])){
-				    $victim = $args[0];
-            $player = $this->getServer()->getPlayer($victim);
-					    if($player === null) {
-						    $sender->sendMessage("§5>§c " . $victim . " Isnt a valid player Or is Not Online!");
-						  }else{
-							  $freeze = $this->freeze->get("Frozen");
-							  $name = $player->getName();
-							    if(in_array($name, $freeze)) {
-								    $sender->sendMessage("§5>§c " . $name . " Is Already Frozen!");
-							    }else{
-								    $array = $this->freeze->get("Frozen");
-								    $frozen = $array;
-								    $frozen[] = $player->getName();
-								    $this->freeze->set("Frozen", $frozen);
-								    $this->freeze->save();
-								    $sender->sendMessage("§5>§d You have Successfully Froze " . $name);
-							    }
-					    }
-					return false;
-				}
-	       return true;
-      case "unfreeze":{
-        if(isset($args[0])) {
-			    $victim = $args[0];
-			    $player = $this->getServer()->getPlayer($victim);
-				    if($player === null) {
-						  $sender->sendMessage("§5>§c " . $victim . " Isnt a valid player Or is Not Online!");
-						}else{
-							$freeze = $this->freeze->get("Frozen");
-							$name = $player->getName();
-								if(in_array($name, $freeze)){
-									$array = $this->freeze->get("Frozen");
-									$rm = $player->getName();
-									$frozen = [];
-									foreach($array as $value){
-										if($value != $rm) {
+public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {
+   	switch($command->getName()){
+       		case "freeze":{
+       			if(isset($args[0])){
+				$victim = $args[0];
+            			$player = $this->getServer()->getPlayer($victim);
+					if($player === null) {
+						$sender->sendMessage("§5>§c " . $victim . " Isnt a valid player Or is Not Online!");
+					}else{
+						$freeze = $this->freeze->get("Frozen");
+						$name = $player->getName();
+							if(in_array($name, $freeze)) {
+								$sender->sendMessage("§5>§c " . $name . " Is Already Frozen!");
+							}else{
+								$array = $this->freeze->get("Frozen");
+								$frozen = $array;
+								$frozen[] = $player->getName();
+								$this->freeze->set("Frozen", $frozen);
+								$this->freeze->save();
+								$sender->sendMessage("§5>§d You have Successfully Froze " . $name);
+							}
+						
+					}
+			}else{
+				$sender->sendMessage("§l§dUsage§5>§r§b /freeze <player>")
+			}
+			return true;
+		}
+      		case "unfreeze":{
+      			if(isset($args[0])) {
+			 	$victim = $args[0];
+			    	$player = $this->getServer()->getPlayer($victim);
+				 	if($player === null) {
+						$sender->sendMessage("§5>§c " . $victim . " Isnt a valid player Or is Not Online!");
+					}else{
+						$freeze = $this->freeze->get("Frozen");
+						$name = $player->getName();
+							if(in_array($name, $freeze)){
+								$array = $this->freeze->get("Frozen");
+								$rm = $player->getName();
+								$frozen = [];
+								foreach($array as $value){
+									if($value != $rm) {
 										$config[] = $value;
-										}
 									}
-									$this->freeze->set("Frozen", $frozen);
-									$this->freeze->save();
-									$sender->sendMessage("§5>§d You Have Sucessfully Unfroze " . $name);
-								}else{
-									$sender->sendMessage("§5>§c ".$name." Isn't Frozen!");
 								}
-				    }
-					return true;
+								$this->freeze->set("Frozen", $frozen);
+								$this->freeze->save();
+								$sender->sendMessage("§5>§d You Have Sucessfully Unfroze " . $name);
+							}else{
+								$sender->sendMessage("§5>§c ".$name." Isn't Frozen!");
+							}
+					}
+			}else{
+				$sender->sendMessage("§l§dUsage§5>§r§b /unfreeze <player>");
+			}
+		return true;
+		}
 	}
-      }
    }
 		
-	public function loadConfig(){
-		$this->saveResource("freeze.yml");
-		$this->freeze = new Config($this->getDataFolder() . "freeze.yml", Config::YAML, array(
-			'Frozen' => []));
-		$this->freeze->save();
-	}
-   
-   
-   
+public function loadConfig(){
+	$this->saveResource("freeze.yml");
+	$this->freeze = new Config($this->getDataFolder() . "freeze.yml", Config::YAML, array(
+		'Frozen' => []));
+	$this->freeze->save();
+}   
 }
