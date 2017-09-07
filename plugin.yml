@@ -23,4 +23,7 @@ permissions:
       fantasyfreeze.unfreeze.use:
         description: "Allows you to use unfreeze command"
         default: op
+  fantasyfreeze.bypass:
+    description: "Allows you to bypass the freeze"
+    default: false
 ...
