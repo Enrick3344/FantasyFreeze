@@ -68,7 +68,7 @@ public function onCommand(CommandSender $sender, Command $command, string $label
 						
 					}
 			}else{
-				$sender->sendMessage("§l§dUsage§5>§r§b /freeze <player>")
+				$sender->sendMessage("§l§dUsage§5>§r§b /freeze <player>");
 			}
 			return true;
 		}
