@@ -65,9 +65,7 @@ class Main extends PluginBase implements Listener {
 								    $this->freeze->save();
 								    $sender->sendMessage("§5>§d You have Successfully Froze " . $name);
 							    }
-						  }else{
-						$sender->sendMessage("§l§dUsage§5>§r§b /freeze <player>");
-					}
+					    }
 					return true;
 				}
       case "unfreeze":{
@@ -94,10 +92,7 @@ class Main extends PluginBase implements Listener {
 								}else{
 									$sender->sendMessage("§5>§c ".$name." Isn't Frozen!");
 								}
-					
-						}else{
-						$sender->sendMessage("§l§dUsage§5>§r§b /unfreeze <player>");
-					}
+				    }
 					return true;
 	}
       }
